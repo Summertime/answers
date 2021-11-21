@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+# The following 3 lines arn't needed, unless unclean env
+N=0
+A=0
+B=
+while read -rN1 R;do
+	((++N))
+	case $R in
+		\()
+			((++A))
+			;;
+		\))
+			((--A+1)) ||
+				: ${B:=$N}
+			;;
+	esac
+done
+echo $A
+echo $B

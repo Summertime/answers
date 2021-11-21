@@ -1,0 +1,4 @@
+#!/usr/bin/env raku
+my @a = $*ARGFILES.comb.map: { %(<( 1 ) -1>){$_}:v };
+say [+] @a;
+say 1 + @a.produce(&[+]).first: -1, :k;
