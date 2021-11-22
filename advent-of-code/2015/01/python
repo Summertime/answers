@@ -1,0 +1,24 @@
+#!/usr/bin/env python3
+import fileinput
+
+
+def chars():
+    with fileinput.input(encoding="utf-8") as f:
+        for l in f:
+            yield from l
+
+chars = [*chars()]
+
+total = 0
+basement = None
+
+for index, ch in enumerate(chars(), 1):
+    if ch == "(":
+        total += 1
+    if ch == ")":
+        total -= 1
+    if total < 0 and not basement:
+        basement = index
+
+print(total)
+print(basement)

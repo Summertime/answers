@@ -1,0 +1,37 @@
+#!/usr/bin/env python3
+import fileinput
+from operator import *
+from toolz.curried import *
+from whatever import _
+
+
+def chars():
+    with fileinput.input(encoding="utf-8") as f:
+        for l in f:
+            yield from l
+
+
+def conv(x):
+    return {'(':1,')':-1}.get(x,0)
+
+
+chars = [*chars()]
+
+pipe(
+    chars,
+    map(conv),
+    sum,
+    print,
+)
+
+pipe(
+    chars,
+    map(conv),
+    accumulate(add),
+    enumerate,
+    filter(_[1] < 0),
+    next,
+    _[0] + 1,
+    print,
+)
+
