@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+p(){ printf -- '%s\n' "$@";}
++(){ awk -- '{for(i=1;i<=NF;i++){X+=$i}}END{print X}';}
+
+ARR=( $( < .input ) )
+
+for (( X=0 ; (X+1) < ${#ARR[@]} ; X++ )); do
+	((
+		ARR[X+0] < ARR[X+1]
+	)) && p 1
+done | +
+
+for (( X=0 ; (X+3) < ${#ARR[@]} ; X++ )); do
+	((
+		( ARR[X+0] + ARR[X+1] + ARR[X+2] ) <
+		( ARR[X+1] + ARR[X+2] + ARR[X+3] )
+	)) && p 1
+done | +
