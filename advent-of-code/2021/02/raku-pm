@@ -3,9 +3,11 @@
 my @a = $*ARGFILES.lines;
 
 multi travel(@a) { samewith(@a, BagHash.new); }
-multi travel([$ where rx:s/down    (.*)/, *@a], $bh) { $bh (+)= :y1($0); samewith(@a, $bh); }
-multi travel([$ where rx:s/up      (.*)/, *@a], $bh) { $bh (-)= :y1($0); samewith(@a, $bh); }
-multi travel([$ where rx:s/forward (.*)/, *@a], $bh) { $bh (+)= (:x($0),:y2($0*$bh<y1>); samewith(@a, $bh); }
+multi travel([$ where rx:s/down    (.*)/, *@a], $bh) { samewith @a, $bh (+) y1 => $0; }
+multi travel([$ where rx:s/up      (.*)/, *@a], $bh) { samewith @a, $bh (-) y1 => $0; }
+multi travel([$ where rx:s/forward (.*)/, *@a], $bh) { samewith @a, $bh (+) (x => $0, y2 => $0 * $bh<y1>); }
 multi travel([], $bh) { $bh; }
 
-say travel(@a);
+my $res = travel(@a);
+say [*] $res<x y1>;
+say [*] $res<x y2>;
