@@ -1,5 +1,5 @@
 #!/usr/bin/env raku
 my @a = $*ARGFILES.lines>>.Int;
-say + @a.rotor(   1   ).rotor(2 => -1).grep({ .[0].sum < .[1].sum });
-say + @a.rotor(3 => -2).rotor(2 => -1).grep({ .[0].sum < .[1].sum });
+say [+] @a Z< @a[1..*];
+say [+] @a Z< @a[3..*];
 
