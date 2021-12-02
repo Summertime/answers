@@ -2,4 +2,6 @@
 my @a = $*ARGFILES.lines>>.Int;
 say [+] @a Z< @a[1..*];
 say [+] @a Z< @a[3..*];
-
+# Of note, from u/0rac1e
+# say [+] [Z<] @a[*, 3..*];
+# 2 chars longer, but much cleaner
