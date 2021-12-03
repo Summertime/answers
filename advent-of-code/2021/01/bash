@@ -1,18 +1,17 @@
 #!/usr/bin/env bash
 p(){ printf -- '%s\n' "$@";}
-+(){ awk -- '{for(i=1;i<=NF;i++){X+=$i}}END{print X}';}
 
-ARR=( $( < .input ) )
+declare -a ARR=( $( < .input ) )
+declare -i X= A1= A2=
+
 
 for (( X=0 ; (X+1) < ${#ARR[@]} ; X++ )); do
-	((
-		ARR[X+0] < ARR[X+1]
-	)) && p 1
-done | +
+	(( A1 += ARR[X+0] < ARR[X+1] ))||:
+done
+echo "$A1"
+
 
 for (( X=0 ; (X+3) < ${#ARR[@]} ; X++ )); do
-	((
-		( ARR[X+0] + ARR[X+1] + ARR[X+2] ) <
-		( ARR[X+1] + ARR[X+2] + ARR[X+3] )
-	)) && p 1
-done | +
+	(( A2 += ARR[X+0] < ARR[X+3] ))||:
+done
+echo "$A2"
