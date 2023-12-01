@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-#!/usr/bin/env bash
 declare -i total=0
 while read -r; do
 	[[ $REPLY =~ ([0-9]) ]]
